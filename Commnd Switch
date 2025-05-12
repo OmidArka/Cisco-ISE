@@ -1,0 +1,16 @@
+conf t
+aaa new-model
+tacacs server ISE01
+address ipv4 172.16.141.100
+key T#r@f!c#F@r!@#2024
+exit
+aaa group server tacacs+ ISE-TACACS-GROUP
+server name ISE01
+ip tacacs source-interface Vlan888
+exit
+aaa authentication login default group ISE-TACACS-GROUP local
+aaa authentication enable default group ISE-TACACS-GROUP enable
+aaa authorization commands 1 default group ISE-TACACS-GROUP if-authenticated
+aaa authorization commands 15 default group ISE-TACACS-GROUP if-authenticated
+aaa accounting exec default start-stop group ISE-TACACS-GROUP
+aaa accounting commands 15 default start-stop group ISE-TACACS-GROUP
